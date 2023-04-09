@@ -19,7 +19,7 @@ node *create_list(){
     node *ptr = head;
     node *pre;
     for(int i = 0;i<n;i++){
-        printf("ENter data: ");
+        printf("Enter data: ");
         scanf("%d",&ptr->data);
         ptr->link = (node *)malloc(sizeof(node));
         pre = ptr;
@@ -36,4 +36,73 @@ void print_list(node *head){
         head = head->link;
     }
     printf("\n");
+}
+
+void add_node_at_beginning(node **H){
+    node *new_node = (node *)malloc(sizeof(node));
+    printf("Enter data you want to add at he end: ");
+    scanf("%d",&new_node->data);
+    if(*H == NULL){
+        new_node->link = NULL;
+    }
+    else new_node->link = *H;
+
+    *H = new_node;
+}
+
+void add_at_end(node **head){
+    node *new_node = (node *)malloc(sizeof(node));
+    new_node->link = NULL;
+    printf("Enter data you want to add at the end: ");
+    scanf("%d",&new_node->data);
+    if(*head == NULL){
+        *head = new_node;
+    }
+    else{
+    node *ptr = *head;
+    while(ptr->link != NULL) ptr = ptr->link;
+    ptr->link = new_node;
+    }
+}
+
+int count_nodes(node *head){
+    int count = 0;
+    while(head != NULL){
+        count++;
+        head = head->link;
+    }
+    return count;
+}
+
+void add_node_at(node **H,int index){
+    if(index < 0 || index >= count_nodes(*H)){
+        printf("index out of range.");
+        return ;
+    }
+    node *new_node = (node *)malloc(sizeof(node));
+    printf("Enter data you want to add: ");
+    scanf("%d",&new_node->data);
+    if(index == 0){
+        new_node->link = *H;
+        *H = new_node;
+    }
+    else{
+        node *ptr = *H;
+        node *tmp;
+        for(int  i = 0 ; i < index-1 ; i++)ptr = ptr->link;
+        tmp = ptr->link;
+        ptr->link = new_node;
+        new_node->link = tmp;
+    }
+}
+
+int main(){
+    int x;
+    node *head = create_list();
+    print_list(head);
+    printf("Enter the index: ");
+    scanf("%d",&x);
+    add_node_at(&head,x);
+    print_list(head);
+
 }
