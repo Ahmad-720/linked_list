@@ -96,13 +96,48 @@ void add_node_at(node **H,int index){
     }
 }
 
-int main(){
-    int x;
-    node *head = create_list();
-    print_list(head);
-    printf("Enter the index: ");
-    scanf("%d",&x);
-    add_node_at(&head,x);
-    print_list(head);
-
+void delete_head(node **H){
+    node *head = *H;
+    if(head == NULL){
+        printf("The list is empty.\n");
+    }
+    else if(head->link == NULL){
+        *H = NULL;
+    }
+    else{
+        *H = head->link;
+    }
 }
+
+void delete_tail(node **H){
+    node *ptr = *H;
+    if(ptr==NULL){
+        printf("The list is empty.\n");
+    }
+    else if(ptr->link == NULL) *H = NULL;
+    else{
+        node *pre;
+        while(ptr->link != NULL){
+            pre = ptr;
+            ptr = ptr->link;
+        }
+        pre->link = NULL;
+        free(ptr);
+    }
+}
+
+void delete_node_at(node **H,int index){
+    if(index < 0 || index >= count_nodes(*H)){
+        printf("Out of range.\n");
+        return ;
+    }
+    if(index == 0){
+        *H = (*H)->link;
+    }
+    else{
+        node *ptr = *H;
+        for(int i = 0;i < index-1;i++) ptr = ptr->link;
+        ptr->link = ptr->link->link;
+    }
+}
+
