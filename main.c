@@ -126,18 +126,4 @@ void delete_tail(node **H){
     }
 }
 
-void delete_node_at(node **H,int index){
-    if(index < 0 || index >= count_nodes(*H)){
-        printf("Out of range.\n");
-        return ;
-    }
-    if(index == 0){
-        *H = (*H)->link;
-    }
-    else{
-        node *ptr = *H;
-        for(int i = 0;i < index-1;i++) ptr = ptr->link;
-        ptr->link = ptr->link->link;
-    }
-}
 
