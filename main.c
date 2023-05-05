@@ -140,5 +140,6 @@ void delete_node_at(node **H,int index){
         for(int i = 0;i < index-1;i++) ptr = ptr->link;
         ptr->link = ptr->link->link;
     }
+}
 
 
